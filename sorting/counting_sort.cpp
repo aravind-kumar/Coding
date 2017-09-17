@@ -3,9 +3,7 @@
 #include <vector>
 
 //Bugs
-//1.Why is the first elemenet of the sorted array 0
 //2.How to handle negative numbers
-//3.How to handle with auxillary array
 
 void PrintArray(const std::vector<int>& inputArray) 
 {
@@ -17,6 +15,7 @@ void PrintArray(const std::vector<int>& inputArray)
 
 void GetInput(std::vector<int>& inputArray)
 {
+   unsigned long int num;
    std::cout<<"Enter the number of inputs \n";
    std::cin>>num;
 
@@ -30,50 +29,62 @@ void GetInput(std::vector<int>& inputArray)
 
 }
 
-void CountSort(std::vector<int>& inputArray)
+void GenerateCountArray(std::vector<int>& inputArray,
+                        std::vector<int>& countArray)
 {
-   unsigned long int maxElement = *std::max_element(inputArray.begin(),inputArray.end());
-   std::vector<int> countArray(maxElement+1,0);
-   std::vector<int> sumArray;
-   std::vector<int> sortedArray(inputArray.size()+1);
-
    for(auto&& i : inputArray)
    {
       ++countArray[i];
    }
-   std::cout<<"The Count Array is \n";
-   
-   PrintArray(countArray);
+}
 
-   sumArray=countArray;
+void GenerateSumArray(std::vector<int>& sumArray)
+{
    for(int i=1;i<sumArray.size();++i)
    {
        sumArray[i]+=sumArray[i-1];
    }
-   std::cout<<"The Sum Array is \n";
-   
-   PrintArray(sumArray);
-   
+}
+
+void SortArray(std::vector<int>& inputArray,
+               std::vector<int>& sumArray,
+	       std::vector<int>& sortedArray)
+{
    std::vector<int>::reverse_iterator it=inputArray.rbegin();
    
    for(;it!=inputArray.rend();++it)
    {
       int indexInSortedArray=sumArray[*it];
-      sortedArray[indexInSortedArray] = *it;
+      sortedArray[indexInSortedArray-1] = *it;
       --sumArray[*it];
    } 
-   
+ 
    inputArray = sortedArray;
+}
+
+void CountSort(std::vector<int>& inputArray)
+{
+   unsigned long int maxElement = *std::max_element(inputArray.begin(),inputArray.end());
+   std::vector<int> countArray(maxElement+1,0);
+   std::vector<int> sortedArray(inputArray.size());
+
+   GenerateCountArray(inputArray,countArray); 
+
+   GenerateSumArray(countArray);
+   
+   SortArray(inputArray,countArray,sortedArray);  
    
 }
 
 int main()
 {
-   unsigned long int num;
    std::vector<int> inputArray;
+   GetInput(inputArray);
    std::cout<<"Input Array before Sorting\n";
+
    PrintArray(inputArray);
    CountSort(inputArray);
+
    std::cout<<"Input Array after Sorting\n";
    PrintArray(inputArray);
    
