@@ -31,7 +31,7 @@ void getMaxSubArray(vector<int> input,
   for(int i=0,j=ColumnNum ; ColumnNum < input.size() ;)
   {
      Output[i][j] = Output[i][j-1] + Output[i+1][j];
-     if(i+j >= input.size())
+     if (i+j >= input.size())
      {
         i=0;
         ++ColumnNum;
@@ -40,7 +40,7 @@ void getMaxSubArray(vector<int> input,
      else
      {
          ++i;
-         j=i+1;
+         ++j;
      }
   }
   PrintArray(Output,input.size());
