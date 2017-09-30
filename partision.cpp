@@ -19,11 +19,14 @@ void partision(vector<int>& givenInput,int pivotIndex)
 {
    int wall=-1;
    int pivotElement = givenInput[pivotIndex];
-   for(int currentElement = 0; currentElement < givenInput.size();++currentElement)
+   for(int currentElement = 0; currentElement <= givenInput.size()-1;++currentElement)
    {
+      cout<<"\n Current Element is "<<givenInput[currentElement];
       if(givenInput[currentElement] <= pivotElement)
       {
          ++wall;
+         cout<<"Swapping"<<currentElement;
+   
          swap(givenInput[currentElement],givenInput[wall]);
       }    
    }
