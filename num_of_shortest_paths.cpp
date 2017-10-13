@@ -93,6 +93,10 @@ class Graph
 {
 private:
   unordered_map<Node,vector<Node>,hash_name,node_compare> adjList;
+  void updateNode(Node oldNode,Node newNode)
+  {
+ 
+  }
 public:
   void AddEdge(Node src,Node dst)
   {
