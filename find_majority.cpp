@@ -2,22 +2,32 @@
 #include <vector>
 
 using namespace std;
-// Minor bug have to fix
+
 int FindMajority(vector<int> inputArray,int low,int high)
 {
-   if(low<=high)
+   cout<<"\n low:"<<low;
+   cout<<"\n high:"<<high;
+   if(high-low+1 == 1)
+   {
+      return inputArray[low];
+   } 
+   if(low<high)
    {
       int mid = low+(high-low)/2;
       int leftMajority = FindMajority(inputArray,low,mid-1);
       int rightMajority = FindMajority(inputArray,mid+1,high);
-      
+      cout<<"\n leftMaj :"<<leftMajority;
+      cout<<"\n rightMaj :"<<rightMajority;     
       if(leftMajority == rightMajority)
       { 
           return leftMajority;
       }
-      int lCount = count(inputArray.begin(),inputArray.end(),leftMajority);
-      int rCount = count(inputArray.begin(),inputArray.end(),rightMajority);
+      int lCount = count(inputArray.begin()+low,inputArray.begin()+mid,leftMajority);
+      int rCount = count(inputArray.begin()+mid,inputArray.begin()+high+1,rightMajority);
+      cout<<"\n LeftCount : "<<lCount;
+      cout<<"\n RightCount :"<<rCount;
 
+      cout<<"\n";
       if(lCount >= mid+1)
       {
          return leftMajority;
