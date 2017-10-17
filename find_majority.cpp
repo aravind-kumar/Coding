@@ -1,34 +1,41 @@
 #include <iostream>
 #include <vector>
+#include "math.h"
 
 using namespace std;
-// Minor bug have to fix
-int FindMajority(vector<int> inputArray,int low,int high)
+
+int FindMajority(vector<int> inputArray)
 {
-   if(low<=high)
+   if(inputArray.size()==1)
    {
-      int mid = low+(high-low)/2;
-      int leftMajority = FindMajority(inputArray,low,mid-1);
-      int rightMajority = FindMajority(inputArray,mid+1,high);
+      return inputArray[0];
+   } 
+   else 
+   {
+      int mid = inputArray.size()/2;
+      vector<int> left(inputArray.begin(),inputArray.begin()+mid);
+      vector<int> right(inputArray.begin()+mid,inputArray.end());
       
+      int leftMajority = FindMajority(left);
+      int rightMajority = FindMajority(right);
+     
       if(leftMajority == rightMajority)
       { 
           return leftMajority;
       }
-      int lCount = count(inputArray.begin(),inputArray.end(),leftMajority);
-      int rCount = count(inputArray.begin(),inputArray.end(),rightMajority);
-
-      if(lCount >= mid+1)
+      int lCount = count(left.begin(),left.end(),leftMajority);
+      int rCount = count(right.begin(),right.end(),rightMajority);
+      
+      if(lCount >= mid)
       {
          return leftMajority;
       }
-      else if(rCount>= mid+1)
+      else if(rCount>= mid)
       {
          return rightMajority;
       }
       return -1;
    }
-   return -1;
 }
 
 int main()
@@ -43,6 +50,6 @@ int main()
      cin>>givenInput;      
      input.push_back(givenInput);
    } 
-   cout<<"\n The majority element is "<<FindMajority(input,0,n-1);
+   cout<<"\n The majority element is "<<FindMajority(input);
    return 0;
 }
