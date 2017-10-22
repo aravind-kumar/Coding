@@ -21,7 +21,7 @@ int FindCycleLength(Node* head)
            slow = slow->next;
            fast = fast->next->next;
         }
-        if(slow!=nullptr && (fast!=nullptr) || head->next!=null)
+        if(slow!=nullptr && fast!=nullptr && fast->next!=null)
         {
             assert(slow==fast);
             Node* current = fast; 
@@ -33,8 +33,8 @@ int FindCycleLength(Node* head)
         }
     }
     return cycleLength;
-    
 }
+
 int main()
 {
 
