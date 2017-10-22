@@ -53,6 +53,5 @@ NodePtr GetIntersectingNode(NodePtr head,NodePtr head2)
 
 int main()
 {
-
    return 0;
 }
