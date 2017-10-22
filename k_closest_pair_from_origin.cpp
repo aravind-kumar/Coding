@@ -27,7 +27,10 @@ bool distanceFromCompare(Point A,Point B)
 
 void GetNLowestElementsFromOrigin(vector<Point> inputVector,int n)
 {
-    partial_sort(inputVector.begin(),inputVector.begin()+n,inputVector.end(),distanceFromCompare);
+    partial_sort(inputVector.begin(),
+	         inputVector.begin()+n,
+                 inputVector.end(),distanceFromCompare);
+
     for_each(inputVector.begin(),
 	     inputVector.begin()+n,
 	     [](Point n) 
