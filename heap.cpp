@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <utility>
 #include <math.h>
+#include <utility>
 using namespace std;
 
 class Heap
@@ -56,9 +57,10 @@ class Heap
 
   void extractMax()
   {
-     heapArray[0] = INT_MIN;
+     int head = heapArray[0];
+     swap(heapArray[0],heapArray.back());
      Heapify(0);
-     heapArray.erase(heapArray.begin()+heapArray.size()-1);     
+     heapArray.erase(find(heapArray.begin(),heapArray.end(),head));
   }
 
   void updateKey(int key,int newValue)
@@ -97,6 +99,10 @@ int main()
   h.insert(6);
   h.insert(10);
   h.insert(7);
+  h.print();
+  cout<<"--------------------";
+  cout<<"top : "<<h.top();
+  h.extractMax();
   h.print();
   return 0;
 }
