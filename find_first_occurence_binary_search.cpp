@@ -30,7 +30,7 @@ int main()
    {
       int givenInput;
       std::cin>>givenInput;
-      inputArray.emplace_back(givenInput);
+      inputArray.push_back(givenInput);
    }
    std::cout<<"\n Enter the number to be found";
    std::cin>>num;
