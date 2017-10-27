@@ -36,6 +36,7 @@
 //           question.
 //           Note: This method can only be applied if the elements are distinct 
 //           If all the elements are same say 1 then there is no minima.
+
 template <typename T>
 int find_local_minima(const std::vector<T> &input)
 {
