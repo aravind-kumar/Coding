@@ -25,13 +25,13 @@ void printInSpiralOrder(const twoDArray& input)
              colLow <= colMax)
        
        {
-          for(i=colLow;i<=rowMax;++i)
+          for(i=rowLow;i<=rowMax;++i)
              cout<<input[rowLow][i]<<" ";
           ++rowLow;
 
           cout<<"\n"; 
 
-          for(i=rowLow;i<=colMax;++i)
+          for(i=colLow;i<=colMax;++i)
              cout<<input[i][colMax]<<" ";
           --colMax;
           
