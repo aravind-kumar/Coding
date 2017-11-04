@@ -1,9 +1,9 @@
-#include <iostrea>
+#include <iostream>
 #include <unordered_map>
 #include <vector>
 #include <stack>
 #include <bitset>
-#include <function>
+#include <functional>
 
 using std::cout;
 using std::cin;
@@ -20,15 +20,15 @@ typedef bitset<(1<<32)> visitedNodes(0);
 
 void DFS(const graph& inputGraph,
 	 const int& node,
-         visitedNodes& visited,function<(int num)> f)
+         visitedNodes& visited,function<void (int num)> f)
 {
-  auto isNotVisted = [visited](int num) { return (visited[num]==false);}; 
+  auto isNotVisited = [visited](int num) { return (visited[num]==false);}; 
   nodes unvisited;
+  nodes::const_iterator it = inputGraph.find(node);
 
-  auto end =copy_if(inputGraph[node].begin(),inputGraph.end(),
-          	        unvisited.begin(), isNotVisited);
-
-  unvisited.resize(std::distance(unvisted.begin(),end));
+  auto end =copy_if((*it).begin(), (*it).end(), unvisited.begin(), isNotVisited);
+          	        
+  unvisited.resize(std::distance(unvisited.begin(),end));
   for(auto&& destinationNode : unvisited)
   {
      visited[destinationNode]=1;
@@ -61,12 +61,12 @@ void runDFSUsing(const graph& g,finishTimeStack inputStack)
    }
 }
 
-graph getTraspose(graph g)
+graph getTranspose(graph g)
 {
    graph newGraph;
    for(auto key: g)
    {
-      for(auto value :element.second) 
+      for(auto value :key.second) 
       {
            newGraph[value].push_back(key);  
       }
