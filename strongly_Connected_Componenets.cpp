@@ -18,18 +18,18 @@ typedef vector<int> nodes;
 typedef stack<int> finishTimeStack;
 typedef vector<bool> visitedNodes;
 
-void DFS(const graph& inputGraph,
-	 const int& node,
+void DFS(graph& inputGraph,
+	 int node,
          visitedNodes& visited,
          function<void(int)> preHook,
          function<void(int)> postHook)
 {
 
-  if(preHook)
+  if(preHook!=nullptr)
     preHook(node);
 
-  auto isNotVisited = [visited](int num) { return (visited[num]==false);}; 
-  nodes unvisited;
+  auto isNotVisited = [visited](int num) { return (visited.at(num)==false);}; 
+  nodes unvisited(1000000);
   auto it = inputGraph.find(node);
 
   auto end = copy_if(it->second.begin(), it->second.end(), unvisited.begin(), isNotVisited);
@@ -41,21 +41,21 @@ void DFS(const graph& inputGraph,
      DFS(inputGraph,destinationNode,visited,preHook,postHook);
   }
 
-  if(postHook)
+  if(postHook!=nullptr)
       postHook(node);
 }
 
-void getFinishTimes(const graph& g,finishTimeStack inputStack)
+void getFinishTimes(graph& g,finishTimeStack& inputStack)
 {
-  visitedNodes visited;
+  visitedNodes visited(100000);
   auto addToStack = [&inputStack](int num) { inputStack.push(num);} ;
-  for(auto node : g)
+  for(auto& node : g)
   {
       DFS(g,node.first,visited,nullptr,addToStack);
   }
 }
 
-void runDFSUsing(const graph& g,finishTimeStack inputStack)
+void runDFSUsing(graph& g,finishTimeStack inputStack)
 {
    visitedNodes visited;
    auto printConnectedComponents = [](int num) { cout<<num<<" ";};
@@ -64,7 +64,7 @@ void runDFSUsing(const graph& g,finishTimeStack inputStack)
    {
      int topOfStack = inputStack.top();
      if(visited[topOfStack] == false)
-     	DFS(g,inputStack.top(),visited,printConnectedComponents,nullptr);
+     	DFS(g,topOfStack,visited,printConnectedComponents,nullptr);
      inputStack.pop();    
    }
 }
@@ -85,16 +85,31 @@ graph getTranspose(graph g)
    return newGraph;
 }
 
-void getStronglyConnectedComponents(graph& g,const int& startNode)
+void getStronglyConnectedComponents(graph& g)
 {
    finishTimeStack nodeFinishTimes;
    getFinishTimes(g,nodeFinishTimes);
-   graph transpose = getTranspose(g);
-   runDFSUsing(transpose,nodeFinishTimes);
+   //graph transpose = getTranspose(g);
+   //runDFSUsing(transpose,nodeFinishTimes);
 }
 
 int main()
 {
-
+  graph g;
+  g[1].push_back(0);
+  g[0].push_back(2);
+  g[2].push_back(1);
+  g[0].push_back(3);
+  g[3].push_back(4);
+  for(auto&& pairs : g)
+  {
+     std::cout<<pairs.first;
+     for(auto&& value : pairs.second)
+     {
+       std::cout<<value<<" ";
+     }
+     std::cout<<"\n";
+  }  
+  getStronglyConnectedComponents(g);
   return 0;
 }
