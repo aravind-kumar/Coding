@@ -32,14 +32,14 @@ class BST
           else if(lTree != nullptr)
           {
               return lTree;
-          } 
+          }
           else if(rTree != nullptr)
           {
               return rTree;
           }
           return nullptr;
-      }    
-   } 
+      }
+   }
    public:
    Node::NodePtr getLCA(NodePtr node1,NodePtr node2) const
    {
