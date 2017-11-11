@@ -4,6 +4,7 @@
 #include <stack>
 #include <bitset>
 #include <functional>
+#include <algorithm>
 
 using std::cout;
 using std::cin;
@@ -16,7 +17,20 @@ using std::function;
 typedef unordered_map<int,vector<int>> graph;
 typedef vector<int> nodes;
 typedef stack<int> finishTimeStack;
-typedef vector<bool> visitedNodes;
+typedef vector<int> visitedNodes;
+
+
+bool isPresent(std::vector<int> inputVector,int element)
+{ 
+    bool found = false;
+    for(auto&& value : inputVector)
+    {
+       if(value == element)
+        found = true;
+    }
+    return found;
+}
+
 
 void DFS(graph& inputGraph,
 	 int node,
@@ -24,21 +38,17 @@ void DFS(graph& inputGraph,
          function<void(int)> preHook,
          function<void(int)> postHook)
 {
-
+  visited.push_back(node);
   if(preHook!=nullptr)
     preHook(node);
-
-  auto isNotVisited = [visited](int num) { return (visited.at(num)==false);}; 
-  nodes unvisited(1000000);
+   
   auto it = inputGraph.find(node);
-
-  auto end = copy_if(it->second.begin(), it->second.end(), unvisited.begin(), isNotVisited);
-          	        
-  unvisited.resize(std::distance(unvisited.begin(),end));
-  for(auto&& destinationNode : unvisited)
+  for(auto&& destinationNode : it->second)
   {
-     visited[destinationNode]=true;
-     DFS(inputGraph,destinationNode,visited,preHook,postHook);
+     if(find(visited.begin(),visited.end(),destinationNode) == visited.end())
+     { 
+         DFS(inputGraph,destinationNode,visited,preHook,postHook);
+     }
   }
 
   if(postHook!=nullptr)
@@ -47,28 +57,44 @@ void DFS(graph& inputGraph,
 
 void getFinishTimes(graph& g,finishTimeStack& inputStack)
 {
-  visitedNodes visited(100000);
+  visitedNodes visited;
   auto addToStack = [&inputStack](int num) { inputStack.push(num);} ;
   for(auto& node : g)
   {
-      DFS(g,node.first,visited,nullptr,addToStack);
+    DFS(g,node.first,visited,nullptr,addToStack);
   }
 }
 
-void runDFSUsing(graph& g,finishTimeStack inputStack)
+vector<vector<int>> runDFSUsing(graph& g,finishTimeStack inputStack)
 {
+   vector<vector<int>> connectedComponents;
    visitedNodes visited;
-   auto printConnectedComponents = [](int num) { cout<<num<<" ";};
    
-   while(!inputStack.empty())
+   while(inputStack.size() != 0)
    {
+     vector<int> nodes;
+     auto printConnectedComponents = [&nodes](int num) {nodes.push_back(num);};
+
      int topOfStack = inputStack.top();
-     if(visited[topOfStack] == false)
-     	DFS(g,topOfStack,visited,printConnectedComponents,nullptr);
      inputStack.pop();    
+     if(find(visited.begin(),visited.end(),topOfStack) == visited.end()) {
+     	DFS(g,topOfStack,visited,printConnectedComponents,nullptr);
+        connectedComponents.push_back(nodes);
+     }
    }
+   return connectedComponents;
 }
 
+void printConnectedComponents(vector<vector<int>> inputVectors)
+{
+   for(auto&& elem : inputVectors)
+   {
+      for(auto&& val : elem)
+         std::cout<<val;
+      std::cout<<"\n";
+   }
+  
+}
 graph getTranspose(graph g)
 {
    graph newGraph;
@@ -76,31 +102,26 @@ graph getTranspose(graph g)
    {
       for(auto value :key.second) 
       {
-        auto it = newGraph.insert
-		   (std::make_pair(value,std::vector<int>(key.first)));
-        if (!it.second)
-        it.first->second.push_back(10); 
+            vector<int> temp = newGraph[value];
+            temp.push_back(key.first);
+            newGraph[value] = temp;
       }
    } 
    return newGraph;
 }
 
-void getStronglyConnectedComponents(graph& g)
+void printStackContents(finishTimeStack inputStack)
 {
-   finishTimeStack nodeFinishTimes;
-   getFinishTimes(g,nodeFinishTimes);
-   //graph transpose = getTranspose(g);
-   //runDFSUsing(transpose,nodeFinishTimes);
+   while(inputStack.size()!=0)
+   {
+      cout<<inputStack.top()<<"\n";
+      inputStack.pop();  
+   }
+
 }
 
-int main()
+void PrintGraph(graph g)
 {
-  graph g;
-  g[1].push_back(0);
-  g[0].push_back(2);
-  g[2].push_back(1);
-  g[0].push_back(3);
-  g[3].push_back(4);
   for(auto&& pairs : g)
   {
      std::cout<<pairs.first;
@@ -110,6 +131,26 @@ int main()
      }
      std::cout<<"\n";
   }  
+}
+
+vector<vector<int>> getStronglyConnectedComponents(graph& g)
+{
+   finishTimeStack nodeFinishTimes;
+   getFinishTimes(g,nodeFinishTimes);
+   graph transpose = getTranspose(g);
+   return (runDFSUsing(transpose,nodeFinishTimes));
+}
+
+
+int main()
+{
+  graph g;
+  g[1].push_back(0);
+  g[0].push_back(2);
+  g[2].push_back(1);
+  g[0].push_back(3);
+  g[3].push_back(4);
+  g.insert(std::make_pair<int,std::vector<int>>(4,std::vector<int>()));
   getStronglyConnectedComponents(g);
   return 0;
 }
