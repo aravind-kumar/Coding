@@ -117,7 +117,6 @@ void printStackContents(finishTimeStack inputStack)
       cout<<inputStack.top()<<"\n";
       inputStack.pop();  
    }
-
 }
 
 void PrintGraph(graph g)
@@ -141,16 +140,90 @@ vector<vector<int>> getStronglyConnectedComponents(graph& g)
    return (runDFSUsing(transpose,nodeFinishTimes));
 }
 
+std::vector<std::pair<int,int>> getEdges(graph g)
+{
+   std::vector<std::pair<int,int>> edges;
+   for(auto pairs : g)
+   {
+      for(auto destinations : pairs.second)
+      {
+         int key = pairs.first;
+         int value = destinations;
+         auto temp = std::make_pair<int,int>((int)key,(int)value);
+         edges.push_back(temp);
+      } 
+   }
+   return edges;
+}
+
+int findTheComponent(std::vector<std::vector<int>> components,int key)
+{
+  for(int i=0;i<components.size();++i)
+  {
+     for(int j=0;j<components[i].size(); ++j)
+     {
+         if(components[i][j] == key)
+           return i;
+     }   
+  }  
+  return -1;
+}
+
+graph getDAG(std::vector<std::vector<int>> components,graph g)
+{
+  graph newGraph;
+  std::vector<std::pair<int,int>> res = getEdges(g);
+  for(auto&& pairs: res)
+  {
+     int src = findTheComponent(components,pairs.first);
+     int dst = findTheComponent(components,pairs.second);
+     if(src != dst)
+     {
+       newGraph[src].push_back(dst);
+       newGraph.insert(std::make_pair<int,std::vector<int>>((int)dst,std::vector<int>()));
+     }
+  }  
+  return newGraph;
+}
+
+int getDaggers(int node,graph g)
+{
+   for(auto&& values : g[node])
+   {
+      return getDaggers(values,g)+1;     
+   } 
+   return 0;
+}
+
+int getMaxDaggers(graph g)
+{
+   int maxDaggers = 0;
+   for(auto pairs : g)
+   {
+      int daggersForNode = getDaggers(pairs.first,g);
+      maxDaggers = std::max(maxDaggers,daggersForNode+1); 
+   }  
+   return maxDaggers; 
+
+}
 
 int main()
 {
   graph g;
-  g[1].push_back(0);
-  g[0].push_back(2);
-  g[2].push_back(1);
-  g[0].push_back(3);
+  g[1].push_back(2);
+  g[2].push_back(3);
+  g[3].push_back(1);
   g[3].push_back(4);
-  g.insert(std::make_pair<int,std::vector<int>>(4,std::vector<int>()));
-  getStronglyConnectedComponents(g);
+  g[3].push_back(7);
+  g[4].push_back(6);
+  g[6].push_back(5);
+  g[5].push_back(4);
+  g[7].push_back(8);
+  g[8].push_back(9);
+  g[9].push_back(7);
+  vector<vector<int>> components = getStronglyConnectedComponents(g);
+  graph newGraph = getDAG(components,g);
+  int maxDaggers = getMaxDaggers(newGraph);
+  cout<<maxDaggers;
   return 0;
 }
