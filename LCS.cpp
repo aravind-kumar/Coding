@@ -15,7 +15,7 @@ int LCS(tring s1,string s2)
        for(int j=1;j<=s2.lenght();++j)
        {
            if(s1[i-1] == s2[j-1])
-             input[i][j]=input[i-1][j-1];
+             input[i][j]=input[i-1][j-1]+1;
            else
              input[i][j]=max(input[i-1][j],input[i][j-1]); 
        }
