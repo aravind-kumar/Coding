@@ -23,7 +23,7 @@ double sqrt(double input)
        high = 0.0;
     }
     else
-    { 
+    {
         low = 0.0;
         high = input;
     }
@@ -32,10 +32,10 @@ double sqrt(double input)
        double mid = low + (high-low) * 0.5;
        if(compare(low,mid) == 1)
           low = mid;
-       else if(compare(low,mid) == -1)
+       else 
           high = mid;
-       else
-          return mid; 
+       //else
+        //  return mid; 
     }
     return low;
 
