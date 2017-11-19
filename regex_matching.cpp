@@ -4,12 +4,12 @@ using namespace std;
 
 bool isMatch(char *input,char* regex)
 {
-  if(input == '\0' && regex == '\0') 
+  if(*input == '\0' && *regex == '\0') 
       return true;
 
-  if(input != '\0' && regex != '\0') {
+  if(*input != '\0' && *regex != '\0') {
      
-    if(input+1 != '*') 
+    if(*(input+1) != '*') 
     {
        if((*input == *regex) || (*input != '\0' && *regex == '.'))
           return isMatch(input+1,regex+1);
@@ -34,7 +34,7 @@ int main()
   cin>>input;
   cout<<"\n Enter the regex";
   cin>>regex;
-  cout<<"\n The result of the matching is "<<isMatch(input.c_str(),regex.c_str()); 
+  cout<<"\n The result of the matching is "<<isMatch((char*)input.c_str(),(char*)regex.c_str()); 
 
    return 0;
 }
