@@ -72,7 +72,7 @@ int getLongestHeight(vector<array<int,3>> dimenstions)
               && 
              output[i] < dimenstions[j][0] + output[j])
                   output[i] = dimenstions[j][0] + output[j];
-   return *(max_elment(output.begin(),output.end()));
+   return *(max_element(output.begin(),output.end()));
 }
 
 int main()
