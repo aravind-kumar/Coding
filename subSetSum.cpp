@@ -3,16 +3,18 @@
 
 using namespace std;
 
-bool doesSumExsist(vector<int> input,int size,int sum)
+bool doesSumExsist(vector<int> input,int sum)
 {
    if(sum==0)
      return true;
-   if(sum > 0 && !size)
+   if(sum != 0 && input.empty())
      return false;
 
-   return doesSumExsist(input,size-1,sum) 
+   int lastElem = input.back();
+   input.pop_back();
+   return doesSumExsist(input,sum) 
 	  || 
-          doesSumExsist(input,size-1,sum-input[size-1]);
+          doesSumExsist(input,sum-lastElem);
 }
 
 int main()
@@ -29,6 +31,6 @@ int main()
    }
    cout<<"\n Enter the sum to check ";
    cin>>num;
-   cout<<"\n Does the sum exsits in the array "<<doesSumExsist(input,input.size(),num); 
+   cout<<"\n Does the sum exsits in the array "<<((doesSumExsist(input,num))? "yes" : "no") ; 
    return 0;
 }
