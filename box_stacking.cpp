@@ -59,7 +59,20 @@ int getLongestHeight(vector<array<int,3>> dimenstions)
    sort(dimenstions.begin(),dimenstions.end(),
        [] (auto input1,auto input2) 
        { return input1[0] > input2[0];});
-   return -1;
+
+   vector<int> output;
+   transform(dimenstions.begin(),dimenstions.end(),back_inserter(output),
+             [](array<int,3> input) { return input[0];});
+
+   for(int i=1;i<output.size();++i)
+      for(int j=0;j<i;++j)
+          if(dimenstions[j][1] > dimenstions[i][1] 
+	      &&
+             dimenstions[j][2] > dimenstions[i][2]
+              && 
+             output[i] < dimenstions[j][0] + output[j])
+                  output[i] = dimenstions[j][0] + output[j];
+   return *(max_elment(output.begin(),output.end()));
 }
 
 int main()
