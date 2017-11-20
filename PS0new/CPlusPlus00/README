@@ -1,0 +1,39 @@
+PDP:PROBLEM SET00 
+NAME: ARAVIND KUMAR
+NEU ID: 001834650
+PROGRAMMING LANGUAGE USED : C++
+OPERATING SYSTEM USED:MAC/LINUX.
+
+Prerequesites:
+C++ COMPILER VERSION : > C++11
+Make
+CxxTest (Optional for compilation but must for Unit Tests).
+
+How to Compile (Assuming g++ is installed with c++11 and make utility installed)
+Command: make
+
+Main() Function
+Filename: temp.cpp
+
+Compiled Binary Output: ps00 (in the same directory)
+
+How to Run Unit Tests: (CxxTest must be installed).
+Command: make test
+
+How to clean the compiled files:
+Command: make clean
+
+Unit Test Files
+	1.isCircularTest.h 
+	2.bestModeTest.h
+	3.bestPlanTest.h
+
+Functions Completed:
+	1.isCircular
+	2.bestMode
+	3.bestPlan
+
+Note: The Unit Test Files above use the modules defined in ModuleExamples.cpp
+      Any changes made to ModuleExamples without appropiate changes to the UnitTest Files
+      Could result in breakage of unit test cases.
+
