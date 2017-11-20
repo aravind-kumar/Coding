@@ -35,6 +35,5 @@ int main()
   cout<<"\n Enter the regex";
   cin>>regex;
   cout<<"\n The result of the matching is "<<isMatch((char*)input.c_str(),(char*)regex.c_str()); 
-
-   return 0;
+  return 0;
 }
