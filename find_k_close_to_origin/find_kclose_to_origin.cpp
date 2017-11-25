@@ -21,7 +21,8 @@ vector<T> find_k_closest_to_origin(const vector<T>& input,int k)
           max_heap.pop();
           max_heap.emplace(input.back()); 
      }
-     input.pop_back();
+     else
+     	input.pop_back();
    }
 
 }
