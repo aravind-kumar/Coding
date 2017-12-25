@@ -65,4 +65,5 @@ int main()
    root->left->right = createNode(5);
    
    doInorderTraversal(root,[](int data) { cout<<data<<"\n";});   
+   return 0;
 }
