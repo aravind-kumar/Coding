@@ -8,6 +8,15 @@ struct Node
     Node* right;
 };
 
+Node* createNode(int data)
+{
+    Node* newdata = new Node;
+    newdata->data = data;
+    newdata->left = nullptr;
+    newdata->right = nullptr;
+    return newdata;
+}
+
 int height(Node* root)
 {
     if(root)
