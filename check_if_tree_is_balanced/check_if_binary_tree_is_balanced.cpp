@@ -19,6 +19,15 @@ int height(Node* root)
     return 0;
 }
 
+Node* createNode(int data)
+{
+    Node* newdata = new Node;
+    newdata->data = data;
+    newdata->left = nullptr;
+    newdata->right = nullptr;
+    return newdata;
+}
+
 bool isBalanced(Node* root)
 {
    if(root)
