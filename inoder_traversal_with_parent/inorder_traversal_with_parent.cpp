@@ -27,14 +27,15 @@ void inorderTraversal(Node* root,function<void(int)> fn)
    Node* current =  root;
    while(current)
    {
+
       if(!leftVisited)
           while(current->left != nullptr)
               current=current->left;
  
        leftVisited = true;
 
-       fn(current->data);
 
+       fn(current->data);
        if(current->right != nullptr)
        {
            current = current->right;
@@ -44,7 +45,11 @@ void inorderTraversal(Node* root,function<void(int)> fn)
        {
           Node* parent = current->parent;
           if(parent->left == current)
+          {
+            fn(current->data);
             current = parent;
+            fn(current->data);
+          }
           else
           {
              while(current!=nullptr && current->parent && current->parent->right == current)
