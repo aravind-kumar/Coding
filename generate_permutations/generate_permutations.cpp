@@ -6,14 +6,27 @@ using namespace std;
 void generatePermutationsHelper(vector<vector<int>>& res,vector<int> nums,vector<int> intermediateResult)
 {
    if(intermediateResult.size() == nums.size())
+   {
+      cout<<"\n Adding the result\n";
+      for(auto&& vec : intermediateResult)
+         cout<<vec<<"--->";
       res.push_back(intermediateResult);
+   }
+
    for(int i=0;i<nums.size();++i)
    {
+     cout<<"I:"<<i<<"\n";
      if(find(intermediateResult.begin(),intermediateResult.end(),nums[i]) != intermediateResult.end())
-          continue; 
+     {
+         cout<<"Skipping for the I";
+         continue; 
+     }
+     cout<<"\n Adding into intermediate" <<nums[i];
      intermediateResult.push_back(nums[i]);
+     cout<<"\n Calling recusively with added";
      generatePermutationsHelper(res,nums,intermediateResult);
      intermediateResult.pop_back();
+     cout<<"\n Removing the result";
    }
 }
 
