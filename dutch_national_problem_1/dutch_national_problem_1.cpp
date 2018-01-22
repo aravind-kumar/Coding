@@ -10,6 +10,54 @@ using namespace std;
 //We do not increment wall2 when we encounter a '2'  and are swapping with wall3
 // This is because wall3's swapped value might contain a 2 or 0 or 1. We dont know 
 // Hence we maintain the same value 
+//    1 0 2 2 1 0
+//    ^         ^
+//    L         H
+//    M
+//
+//    Mid != 0 || 2
+//    Mid++
+//
+//    1 0 2 2 1 0
+//    ^ ^       ^
+//    L M       H
+//
+//    Mid == 0
+//    Swap Low and Mid
+//    Mid++
+//    Low++
+//
+//    0 1 2 2 1 0
+//      ^ ^     ^
+//      L M     H
+//
+//    Mid == 2
+//    Swap High and Mid
+//    High--
+//
+//    0 1 0 2 1 2
+//      ^ ^   ^
+//      L M   H
+//
+//    Mid == 0
+//    Swap Low and Mid
+//    Mid++
+//    Low++
+//
+//    0 0 1 2 1 2
+//        ^ ^ ^
+//        L M H
+//
+//    Mid == 2
+//    Swap High and Mid
+//    High--
+//
+//    0 0 1 1 2 2
+//        ^ ^
+//        L M
+//          H
+//
+//    Mid <= High is our exit case
 void dutchPartision(vector<int>& input)
 { 
     int wall1=0;
