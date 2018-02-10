@@ -9,7 +9,7 @@ void insertIntoStack(int element,stack<int>& ans) {
    } else {
        int top = ans.top();
        ans.pop();
-       insertIntoStack(top,ans);
+       insertIntoStack(element,ans);
        ans.push(top);
    }
 }
