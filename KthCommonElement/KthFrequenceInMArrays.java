@@ -36,14 +36,20 @@ public static List<Integer> doIntersection(List<List<Integer>> inputArray) {
 
 
 public static Integer getKthElement(List<Integer> listElements,int k) {
-   Collections.sort(listElements);
-   System.out.println(listElements);
-   return listElements.get(k);
-    
-
+   Queue<Integer> maxHeap = new PriorityQueue<>(k,Collections.reverseOrder());
+   for(int i=0;i<k;++i) {
+      maxHeap.add(listElements.get(i)); 
+   }
+ 
+   for(int i=k;i<listElements.size();++i) {
+       System.out.println("Index is :" + i);
+       if(listElements.get(i) < maxHeap.peek()) {
+          maxHeap.poll();
+          maxHeap.add(listElements.get(i)); 
+       } 
+   }
+   return maxHeap.peek();
 }
-
-
 
 public static Integer getKthCommonElement(List<List<Integer>> inputArray,int k) {
    List<Integer> commonElements = doIntersection(inputArray);
@@ -52,7 +58,6 @@ public static Integer getKthCommonElement(List<List<Integer>> inputArray,int k) 
    }
    return null;
 }
-
 
 public static void main(String[] args) {
   
