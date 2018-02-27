@@ -7,25 +7,18 @@ using namespace std;
 
 int FindMajority(vector<int> inputVector)
 {
-    vector<int>::iterator i,j;
-    for(i=inputVector.begin(),j=i+1;j<inputVector.end();)
-    {
-      if(*i != *j)
-      {
-           i = inputVector.erase(i);
-           j = inputVector.erase(i);
+   int majority=0,count=0;
+   for(auto num : inputVector) {
+      if(num == majority) 
+           count++;
+      else if (majority==0) {
+           majority = num;
+           count=1;
       }
-      else
-      {
-         i+=2;
-         j+=2;
-      }
-    } 
-    if (inputVector.size()>=1)
-    {
-       return inputVector[0];
-    }
-    return -1;
+      else 
+           count--; 
+   }
+   return majority;
 }
 int main()
 {
