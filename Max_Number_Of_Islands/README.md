@@ -1,4 +1,4 @@
 Maximum number of islands
 
-![Alt text](notes/number\ of\ islands_1.jpg.jpg?raw=true "Number of islands")
-![Alt text](notes/number\ of\ islands_2.jpg.jpg?raw=true "Number of islands")
+![Alt text](https://github.com/aravind-kumar/notes/number\ of\ islands_1.jpg.jpg?)
+![Alt text](https://github.com/aravind-kumar/notes/number\ of\ islands_2.jpg.jpg?)
