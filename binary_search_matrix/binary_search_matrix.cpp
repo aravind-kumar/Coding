@@ -16,9 +16,9 @@ public:
             if(target>=row.front() && target <=row.back()) {
                 rowNum = mid;
                 break;
-            } else if(target>row.front() && target>row.back()) {
+            } else if(target>row.back()) {
                 start = mid+1;
-            } else if(target<row.front() && target<row.back()) {
+            } else if(target<row.front()) {
                 end = mid-1;
             }
         }
