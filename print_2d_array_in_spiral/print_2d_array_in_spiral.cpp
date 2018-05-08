@@ -13,49 +13,48 @@ typedef vector<vector<int>> twoDArray;
 
 void printInSpiralOrder(const twoDArray& input)
 {
-   if(input.size())
-   {
-       int rowLow=0;
-       int rowMax=input[0].size()-1;
-       int colLow=0;
-       int colMax=input.size()-1;
-       int i=0;       
-       while(rowLow <= rowMax 
-	     &&
-             colLow <= colMax)
+
+vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> result;
        
-       {
-          for(i=rowLow;i<=rowMax;++i)
-             cout<<input[rowLow][i]<<" ";
-          ++rowLow;
+        if(!matrix.empty()) {
+            
+            int rowLow = 0;
+            int rowMax = matrix.size()-1; 
+            int colLow = 0;
+            int colMax = matrix.front().size()-1;
+            
+            while(rowLow <= rowMax 
+                    &&
+                 colLow <= colMax) {
 
-          cout<<"\n"; 
+                // Print the first row but we are iterating over the columns in doing so                
+                for(int i=colLow;i<=colMax;++i) {
+                    result.push_back(matrix[rowLow][i]);
+                }
 
-          for(i=colLow;i<=colMax;++i)
-             cout<<input[i][colMax]<<" ";
-          --colMax;
-          
-          cout<<"\n"; 
+                // Print the last colum but we are iterating over the rows 
+                for(int i=rowLow+1;i<=rowMax;++i) {
+                    result.push_back(matrix[i][colMax]);
+                }
+               
+                // Same as above but in reverse direction 
+                if(rowLow<rowMax && colLow<colMax) {
+                    for(int i=colMax-1;i>colLow;--i) {
+                        result.push_back(matrix[rowMax][i]);
+                    }
+                    for(int i=rowMax;i>rowLow;--i) {
+                        result.push_back(matrix[i][colLow]);
+                    }
+                }
+                ++rowLow;
+                --rowMax;
+                ++colLow;
+                --colMax;
+            }
+        }
+        return result;
 
-          if(rowLow<=rowMax)
-          {
-            for(i=colMax;i>=colLow;--i)
- 		cout<<input[rowMax][i]<<" ";
-            --rowMax; 
-          }
-
-          cout<<"\n"; 
-
-          if(colLow<=colMax)
-          {
-            for(i=rowMax;i>=rowLow;--i)
-		cout<<input[i][colLow]<<" ";
-             ++colLow;
-          } 
-
-          cout<<"\n";
-       }
-   }
 }
 
 void printNormalOrder(const twoDArray& input)
