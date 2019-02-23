@@ -39,3 +39,10 @@ public:
         return node;
     }
 };
+
+//We know that preorder is root,left,right and inorder is left,root,right 
+// hence we know that the first element in preorder traversal is always root followed by other elementss.
+// once we know the root we find the left and right subtree using inorder index map we created.
+// on subsequent itreations the start is incremented and points the root of the left subtree in the preorder traveral.
+// We use the same apporach as that of post-inorder but in that we started from the end and went to the righ first, in this 
+// we start from 0 and go to the left first because of the traversal technique used.
