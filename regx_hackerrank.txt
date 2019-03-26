@@ -5,3 +5,4 @@ Regex_Pattern = r"\S\S\s\S\S\s\S\S"	# Do not delete 'r'.
 Regex_Pattern = r"\w{3}\W\w{10}\W\w{3}"	# Do not delete 'r'.
 Regex_Pattern = r"^\d\w{4}\.$"	# Do not delete 'r'.
 Regex_Pattern = r'^[a-z][1-9][^a-z][^A-Z][A-Z]'	# Do not delete 'r'.
+[a-g]*
